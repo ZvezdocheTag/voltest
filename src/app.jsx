@@ -1,17 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
+import App from 'containers/App'
 import 'react-select/dist/react-select.css';
+import configureStore from './configureStore';
 
+const initialState = {};
+const history = createHistory();
 
-class App extends React.Component {
+const store = configureStore(initialState, history);
+
+class Root extends React.Component {
     render() {
         return (
-            <div>
-            Place your application here
-            </div>
+            <Provider store={store}>
+                <App />
+            </Provider>
         )
     }
 }
 
-ReactDOM.render(<My />, document.getElementById('app-root'));
+render(<Root />, document.getElementById('app-root'));
