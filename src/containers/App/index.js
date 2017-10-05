@@ -2,19 +2,35 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { Grid, Row, Col} from 'react-bootstrap'
-import { Helmet } from 'react-helmet';
+import {Helmet} from "react-helmet";
 import { Switch, Route } from 'react-router-dom';
+import Header  from '../../components/Header'
+
+import Home from '../Home'
+import Customers from '../Customers'
+import Products from '../Products'
+import Invoices from '../Invoices'
 
 class App extends Component {
     render() {
-        console.log(this)
+        let { routeReducer } = this.props.state;
+        let { pathname } = routeReducer.location;
+        let title = pathname !== '/' ? pathname.slice(1) : 'Home'
+        console.log()
         return (
             <Grid>
-                <Row className="show-grid">
-                    <Col xs={12} md={8}>
-                        <code>&lt;{'Col xs={12} md={8}'} /&gt;</code>
-                    </Col>
-                </Row>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{title}</title>
+            </Helmet>
+                <Header />
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/customers" component={Customers} />
+                    <Route path="/products" component={Products} />
+                    <Route path="/invoices" component={Invoices} />
+              </Switch>
+
             </Grid>
         );
     }
