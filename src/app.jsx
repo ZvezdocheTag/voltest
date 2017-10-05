@@ -1,6 +1,17 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 
 import 'react-select/dist/react-select.css';
 
-render(<div>Place your application here</div>, document.getElementById('app-root'));
+
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+            Place your application here
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<My />, document.getElementById('app-root'));
