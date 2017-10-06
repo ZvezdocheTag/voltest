@@ -1,9 +1,12 @@
 import React from 'react';
 import { Form, Control } from 'react-redux-form';
 
-class CustomerForm extends React.Component {
+class CustomerFormAdd extends React.Component {
   handleSubmit(values) {
-    console.log(values);
+    let { handlerCreateCustomer } = this.props;
+    // console.log(values.add);
+
+    console.log(handlerCreateCustomer(values.add))
   }
 
   render() {
@@ -34,4 +37,4 @@ class CustomerForm extends React.Component {
   }
 }
 
-export default CustomerForm;
+export default CustomerFormAdd;

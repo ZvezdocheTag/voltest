@@ -3,6 +3,7 @@ import {
     FETCH_CUSTOMERS_SUCCESS,
     FETCH_CUSTOMERS_FAILURE,
     RESET_FETCH_CUSTOMERS,
+    UPDATE_CUSTOMER_LIST
 } from '../action/fetchall'
 
 const initialState = {
@@ -11,11 +12,23 @@ const initialState = {
         loading: false
 }
 
+function updateCustomerListFilter(filter, action, state) {
+    switch(filter) {
+        case "POST":
+            return [...state, action]
+        case "PUT":
+            return [...state, action]
+        case "DELETE":
+            return state.filter(item => item.id !== action.id)
+        default:
+            return state;
+    }
+}
+
 function fetchAllCusomersReducer(state = initialState, action) {
     let error;
     switch(action.type) {
         case FETCH_CUSTOMERS:
-            console.log("FETCH")
             return { 
                 ...state, 
                 customers:[], 
@@ -23,7 +36,6 @@ function fetchAllCusomersReducer(state = initialState, action) {
                 loading: true
             }
         case FETCH_CUSTOMERS_SUCCESS:
-        console.log("FETCH S")
         return { 
             ...state, 
             customers: action.payload, 
@@ -32,7 +44,6 @@ function fetchAllCusomersReducer(state = initialState, action) {
              
         };
         case FETCH_CUSTOMERS_FAILURE:
-        console.log("FETCH FF")
         error = action.payload || 
             {message: action.payload.message}
         return { 
@@ -42,6 +53,15 @@ function fetchAllCusomersReducer(state = initialState, action) {
             loading: false
              
         };
+        case UPDATE_CUSTOMER_LIST:
+            return {
+                ...state,
+                customers: updateCustomerListFilter(
+                    action.filter,
+                    action.payload,
+                    state.customers
+                )
+            }
         case RESET_FETCH_CUSTOMERS:
             return { 
                 ...state,

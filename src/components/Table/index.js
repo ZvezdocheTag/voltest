@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap'
+import { Table, Button } from 'react-bootstrap'
 
 const Tbhead = ({ headItems }) => (
     <thead>
@@ -12,31 +12,38 @@ const Tbhead = ({ headItems }) => (
     </thead>
 )
 
-const Tbitem = ({data, keyId}) => (
-    <tr>
-        <td>{keyId}</td>
-        <td>{data.name}</td>
-        <td>{data.address}</td>
-        <td>{data.phone}</td>
-    </tr>
-)
-
-const Tbbody = ({items}) => (
+const Tbbody = ({items, Tbitem, event}) => (
     <tbody>
         {
-            items.map((item, i) => <Tbitem key={i} keyId={i + 1} data={item}/>)
+            items.map((item, i) => 
+                <Tbitem 
+                key={i} 
+                keyId={i + 1} 
+                data={item}
+                event={event}
+                />)
         }
     </tbody>
 )
 
 class TableCustom extends Component {
     render() {
-        let { thead, tbodyData } = this.props;
+        let { 
+            thead, 
+            tbodyData, 
+            Tbitem,
+            update,
+            deleted
+        } = this.props;
 
         return (
             <Table responsive>
                 <Tbhead headItems={thead}/>
-                <Tbbody items={tbodyData}/>
+                <Tbbody 
+                    items={tbodyData}
+                    Tbitem={Tbitem}
+                    event={{update, deleted}}
+                />
             </Table>
         );
     }

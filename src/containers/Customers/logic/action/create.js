@@ -1,23 +1,13 @@
-//Create new post
+import ROOT_URL from '../../../../constants'
+import axios from 'axios'
+import { updateCusomerList } from './fetchall'
+
+import { fetchCustomers } from './fetchall'
 export const CREATE_CUSTOMER = 'CREATE_CUSTOMER';
 export const CREATE_CUSTOMER_SUCCESS = 'CREATE_CUSTOMER_SUCCESS';
 export const CREATE_CUSTOMER_FAILURE = 'CREATE_CUSTOMER_FAILURE';
 export const RESET_NEW_CUSTOMER = 'RESET_NEW_CUSTOMER';
 
-
-
-export function createCustomer(props, tokenFromStorage) {
-    const request = axios({
-      method: 'post',
-      data: props,
-      url: `${ROOT_URL}/customers`,
-    });
-  
-    return {
-      type: CREATE_CUSTOMER,
-      payload: request
-    };
-  }
 export function createCustomer(props) {
     const request = axios({
       method: 'post',
@@ -31,7 +21,11 @@ export function createCustomer(props) {
     })
     .request
     .then(
-      res => dispatch(createCustomerSuccess(res.data)),
+      res => {
+        // console.log(res.config.headers, "IN ACTION")
+        dispatch(createCustomerSuccess(res.data))
+        dispatch(updateCusomerList(res.data, "POST"))
+      },
       err => dispatch(createCustomerFailure(err)) 
     )
   }
