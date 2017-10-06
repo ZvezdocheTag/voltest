@@ -13,7 +13,9 @@ import Products from '../Products'
 import Invoices from '../Invoices'
 
 class App extends Component {
+
     render() {
+
         let { routeReducer } = this.props.state;
         let { pathname } = routeReducer.location;
         let title = pathname !== '/' ? pathname.slice(1) : 'Home'

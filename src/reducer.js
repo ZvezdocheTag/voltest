@@ -1,6 +1,6 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { combineReducers } from 'redux'
-import globalReducer from './reducers';
+import customerReducer from './containers/Customers/logic/reducer/'
 
 
 const routeInitialState = {
@@ -25,8 +25,8 @@ function routeReducer(state = routeInitialState, action) {
  */
 export default function createReducer(injectedReducers) {
   return combineReducers({
-    globalReducer,
     routeReducer,
+    customer: customerReducer,
     ...injectedReducers
   });
 }

@@ -12,32 +12,31 @@ const Tbhead = ({ headItems }) => (
     </thead>
 )
 
-const Tbitem = () => (
+const Tbitem = ({data, keyId}) => (
     <tr>
-        <td>1</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
+        <td>{keyId}</td>
+        <td>{data.name}</td>
+        <td>{data.address}</td>
+        <td>{data.phone}</td>
     </tr>
 )
 
-const Tbbody = () => (
+const Tbbody = ({items}) => (
     <tbody>
-        <Tbitem />
+        {
+            items.map((item, i) => <Tbitem key={i} keyId={i + 1} data={item}/>)
+        }
     </tbody>
 )
 
 class TableCustom extends Component {
     render() {
-        let { thead } = this.props;
+        let { thead, tbodyData } = this.props;
 
         return (
             <Table responsive>
                 <Tbhead headItems={thead}/>
-                <Tbbody />
+                <Tbbody items={tbodyData}/>
             </Table>
         );
     }
