@@ -6,11 +6,12 @@ const Tbhead = ({ headItems }) => (
     <thead>
         <tr>
             {
-                headItems.map((item,i) => <th key={i}>{item}</th> )
+                headItems.map((item,i) => <th key={i}>{item}</th>)
             }
         </tr>
     </thead>
 )
+
 const Tbitem = () => (
     <tr>
         <td>1</td>
