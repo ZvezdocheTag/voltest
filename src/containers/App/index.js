@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import { Grid, Row, Col} from 'react-bootstrap'
+import { Grid} from 'react-bootstrap'
 import {Helmet} from "react-helmet";
 import { Switch, Route } from 'react-router-dom';
 import Header  from '../../components/Header'
+import Footer  from '../../components/Footer'
 
 import Home from '../Home'
 import Customers from '../Customers'
@@ -16,7 +17,6 @@ class App extends Component {
         let { routeReducer } = this.props.state;
         let { pathname } = routeReducer.location;
         let title = pathname !== '/' ? pathname.slice(1) : 'Home'
-        console.log()
         return (
             <Grid>
             <Helmet>
@@ -30,7 +30,7 @@ class App extends Component {
                     <Route path="/products" component={Products} />
                     <Route path="/invoices" component={Invoices} />
               </Switch>
-
+              <Footer />
             </Grid>
         );
     }
