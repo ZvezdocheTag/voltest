@@ -16,20 +16,17 @@ function changeCustomerReducer (state = initialState, action) {
     let error;
     switch(action.type) {
         case CHANGE_CUSTOMER:
-            console.log("CHANGE")
             return { 
                 ...state, 
                 loading: true    
             } 
         case CHANGE_CUSTOMER_SUCCESS:
-        console.log("CHANGE S")
             return { 
                 customer: action.payload, 
                 error: false,
                 loading: false    
             }
         case CHANGE_CUSTOMER_FAILURE:
-        console.log("CHANGE F")
             error = action.payload || 
             {message: action.payload.message}
             return {  

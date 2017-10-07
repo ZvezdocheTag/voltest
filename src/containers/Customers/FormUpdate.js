@@ -1,12 +1,16 @@
 import React from 'react';
-import { Form, Control } from 'react-redux-form';
+import { Form, Control, actions } from 'react-redux-form';
 import { Button } from 'react-bootstrap'
 
 class CustomerFormUpdate extends React.Component {
   handleSubmit(values) {
-    let { handlerChangeCustomer, itemId, close } = this.props;
+    let { handlerChangeCustomer, itemId, close, dispatch } = this.props;
     handlerChangeCustomer(values.change, itemId)
-    .then(res => close())
+    .then(res => {
+      close()
+      dispatch(actions.reset('customerForm.change'))
+
+    })
   }
 
   render() {

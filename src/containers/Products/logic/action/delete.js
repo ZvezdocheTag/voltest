@@ -1,6 +1,6 @@
 import ROOT_URL from '../../../../constants'
 import axios from 'axios'
-import { updateCusomerList } from './fetchall'
+import { updateProductList } from './fetchall'
 
 //Delete PRODUCT
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
@@ -21,7 +21,7 @@ export function deleteProduct(id) {
       .then(
         res => {
           dispatch(deleteProductSuccess(res.data))
-          dispatch(dispatch(updateCusomerList(res.data, "DELETE")))
+          dispatch(dispatch(updateProductList(res.data, "DELETE")))
         },
         err => dispatch(deleteProductFailure(res.data))
       )

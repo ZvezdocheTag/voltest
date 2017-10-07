@@ -41,6 +41,7 @@ class Customers extends Component {
             <Content 
             close={this.close}
             itemId={currentId}
+            dispatch={this.props.dispatch}
             handlerCreateCustomer={this.props.createCustomer}
             handlerDeleteCustomer={this.props.deleteCustomer}
             handlerChangeCustomer={this.props.changeCustomer}
@@ -98,6 +99,7 @@ class Customers extends Component {
 const mapStateToProps = (store) => ({...store})
 
 const mapDispatchToProps = (dispatch) => ({
+        dispatch,
         fetchCustomers: () => dispatch(fetchCustomers()),
         createCustomer: (data) => dispatch(createCustomer(data)),
         deleteCustomer: (id) => dispatch(deleteCustomer(id)),

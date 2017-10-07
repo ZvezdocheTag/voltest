@@ -41,6 +41,7 @@ class Products extends Component {
             <Content 
             close={this.close}
             itemId={currentId}
+            dispatch={this.props.dispatch}
             handlerCreateProduct={this.props.createProduct}
             handlerDeleteProduct={this.props.deleteProduct}
             handlerChangeProduct={this.props.changeProduct}
@@ -53,14 +54,16 @@ class Products extends Component {
         this.open(ProductFormAdd)
     }
     update = (id, e) => {
+        console.log(id)
         this.open(ProductFormUpdate, id)
     }
     deleted = (id, e) => {
+        console.log(id)
         this.open(ProductFormDelete, id)
     }
     
     render() {
-        console.log(this)
+
         const { ModalContent, showModal } = this.state;
         const { product, createProduct } = this.props;
         const { 
@@ -100,6 +103,7 @@ const mapStateToProps = (store) => ({...store})
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        dispatch,
         fetchProducts: () => dispatch(fetchProducts()),
         createProduct: (data) => dispatch(createProduct(data)),
         deleteProduct: (id) => dispatch(deleteProduct(id)),

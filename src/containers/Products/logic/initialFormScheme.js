@@ -1,11 +1,9 @@
 export const addProduct = {
     name: '',
-    address: '',
-    phone: '',
+    price: '',
 }
 
 export const changeProduct = {
     name: '',
-    address: '',
-    phone: '',
+    price: '',
 }

@@ -1,12 +1,17 @@
 import React from 'react';
-import { Form, Control } from 'react-redux-form';
+import { Form, Control, actions } from 'react-redux-form';
 import { Button } from 'react-bootstrap'
+
 
 class ProductFormAdd extends React.Component {
   handleSubmit(values) {
-    let { handlerCreateProduct, close } = this.props;
+    let { handlerCreateProduct, close, dispatch } = this.props;
+    console.log(this)
     handlerCreateProduct(values.add)
-    .then(res => close())
+    .then(res => {
+      close()
+      dispatch(actions.reset('productForm.add'))
+    })
   }
 
   render() {
@@ -19,14 +24,10 @@ class ProductFormAdd extends React.Component {
           <Control.text model="productForm.add.name" />
         </div>
         <div className="field">
-          <label>Address:</label>
-          <Control.text model="productForm.add.address" />
+          <label>price:</label>
+          <Control.text model="productForm.add.price" />
         </div>
 
-        <div className="field">
-          <label>Phone:</label>
-          <Control.text model="productForm.add.phone" />
-        </div>
         <div className="field-caption">
         <Button bsStyle="primary" type="submit">
           Submit

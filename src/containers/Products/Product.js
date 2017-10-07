@@ -5,8 +5,7 @@ const ProductItem = ({data, keyId, event}) => (
     <tr>
         <td>{keyId}</td>
         <td>{data.name}</td>
-        <td>{data.address}</td>
-        <td>{data.phone}</td>
+        <td>{data.price}</td>
         <td>
         <Button 
             bsStyle="primary"

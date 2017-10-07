@@ -16,20 +16,20 @@ function changeProductReducer (state = initialState, action) {
     let error;
     switch(action.type) {
         case CHANGE_PRODUCT:
-            console.log("CHANGE")
+            console.log("CHANGE cR")
             return { 
                 ...state, 
                 loading: true    
             } 
         case CHANGE_PRODUCT_SUCCESS:
-        console.log("CHANGE S")
+        console.log("CHANGE cS")
             return { 
                 product: action.payload, 
                 error: false,
                 loading: false    
             }
         case CHANGE_PRODUCT_FAILURE:
-        console.log("CHANGE F")
+        console.log("CHANGE cF")
             error = action.payload || 
             {message: action.payload.message}
             return {  
