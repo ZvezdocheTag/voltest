@@ -60,6 +60,7 @@ class Products extends Component {
     }
     
     render() {
+        console.log(this)
         const { ModalContent, showModal } = this.state;
         const { product, createProduct } = this.props;
         const { 
@@ -67,7 +68,7 @@ class Products extends Component {
             error,
             loading
          } = product.all;
-        let condition = !customers.length && loading;
+        let condition = !products.length && loading;
 
         return (
             <div>
@@ -78,18 +79,18 @@ class Products extends Component {
                     <h1>LOAD</h1> :
                     <TableCustom 
                         thead={["#", "Name", "Price"]}
-                        tbodyData={customers}
+                        tbodyData={products}
                         Tbitem={ProductItem}
                         update={this.update}
                         deleted={this.deleted}
                     />
                 }
-                <ModalProduct 
+                <ModalCustomer 
                     closeHandler={this.close} 
                     showModal={showModal}
                 >
                     <ModalContent/>
-                </ModalProduct >
+                </ModalCustomer >
             </div>
         );
     }

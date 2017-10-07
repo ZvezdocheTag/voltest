@@ -7,7 +7,7 @@ import {
 } from '../action/fetchall'
 
 const initialState = {
-    customers: [], 
+    products: [], 
     error:null, 
     loading: false
 }
@@ -36,14 +36,14 @@ function fetchAllCusomersReducer(state = initialState, action) {
         case FETCH_PRODUCTS:
             return { 
                 ...state, 
-                customers:[], 
+                products:[], 
                 error: null, 
                 loading: true
             }
         case FETCH_PRODUCTS_SUCCESS:
         return { 
             ...state, 
-            customers: action.payload, 
+            products: action.payload, 
             error:null, 
             loading: false
              
@@ -53,7 +53,7 @@ function fetchAllCusomersReducer(state = initialState, action) {
             {message: action.payload.message}
         return { 
             ...state, 
-            customers: [], 
+            products: [], 
             error: error, 
             loading: false
              
@@ -61,16 +61,16 @@ function fetchAllCusomersReducer(state = initialState, action) {
         case UPDATE_PRODUCT_LIST:
             return {
                 ...state,
-                customers: updateProductListFilter(
+                products: updateProductListFilter(
                     action.filter,
                     action.payload,
-                    state.customers
+                    state.products
                 )
             }
         case RESET_FETCH_PRODUCTS:
             return { 
                 ...state,
-                customers: [], 
+                products: [], 
                 error:null, 
                 loading: false 
             };

@@ -6,7 +6,7 @@ import {
 } from '../action/change'
 
 const initialState = {
-    customer:null, 
+    product:null, 
     error: null, 
     loading: false 
 }
@@ -24,7 +24,7 @@ function changeProductReducer (state = initialState, action) {
         case CHANGE_PRODUCT_SUCCESS:
         console.log("CHANGE S")
             return { 
-                customer: action.payload, 
+                product: action.payload, 
                 error: false,
                 loading: false    
             }
@@ -33,13 +33,13 @@ function changeProductReducer (state = initialState, action) {
             error = action.payload || 
             {message: action.payload.message}
             return {  
-                customer: null, 
+                product: null, 
                 error: error, 
                 loading: false    
             };
         case RESET_CHANGED_PRODUCT:
             return {  
-                customer: null, 
+                product: null, 
                 error:null, 
                 loading: false
             };

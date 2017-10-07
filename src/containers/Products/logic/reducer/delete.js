@@ -6,7 +6,7 @@ import {
 } from '../action/delete'
 
 const initialState = {
-    customer:null, 
+    product:null, 
     error: null, 
     loading: false
 }
@@ -21,7 +21,7 @@ function deleteProductReducer(state = initialState, action) {
             }
         case DELETE_PRODUCT_SUCCESS:
             return { 
-                customer: action.payload, 
+                product: action.payload, 
                 error:null, 
                 loading: false 
             };
@@ -29,13 +29,13 @@ function deleteProductReducer(state = initialState, action) {
         error = action.payload || 
             {message: action.payload.message}
             return { 
-                customer: null,  
+                product: null,  
                 error: error, 
                 loading: false 
             };
         case RESET_DELETE_PRODUCT:
             return { 
-                customer: null, 
+                product: null, 
                 error:null, 
                 loading: false 
             };
