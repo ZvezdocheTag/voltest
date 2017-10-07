@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap'
 
-const CustomerItem = ({data, keyId, event}) => (
+const ProductItem = ({data, keyId, event}) => (
     <tr>
         <td>{keyId}</td>
         <td>{data.name}</td>
@@ -22,4 +22,4 @@ const CustomerItem = ({data, keyId, event}) => (
     </tr>
 )
 
-export default CustomerItem;
+export default ProductItem;

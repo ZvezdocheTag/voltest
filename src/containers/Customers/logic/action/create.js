@@ -22,7 +22,6 @@ export function createCustomer(props) {
     .request
     .then(
       res => {
-        // console.log(res.config.headers, "IN ACTION")
         dispatch(createCustomerSuccess(res.data))
         dispatch(updateCusomerList(res.data, "POST"))
       },

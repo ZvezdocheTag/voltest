@@ -2,48 +2,48 @@ import ROOT_URL from '../../../../constants'
 import axios from 'axios'
 import { updateCusomerList } from './fetchall'
 
-//Delete CUSTOMER
-export const DELETE_CUSTOMER = 'DELETE_CUSTOMER';
-export const DELETE_CUSTOMER_SUCCESS = 'DELETE_CUSTOMER_SUCCESS';
-export const DELETE_CUSTOMER_FAILURE = 'DELETE_CUSTOMER_FAILURE';
-export const RESET_DELETED_CUSTOMER = 'RESET_DELETED_CUSTOMER';
+//Delete PRODUCT
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
+export const DELETE_PRODUCT_FAILURE = 'DELETE_PRODUCT_FAILURE';
+export const RESET_DELETED_PRODUCT = 'RESET_DELETED_PRODUCT';
 
-export function deleteCustomer(id) {
+export function deleteProduct(id) {
     const request = axios({
       method: 'delete',
-      url: `${ROOT_URL}/customers/${id}`,
+      url: `${ROOT_URL}/products/${id}`,
     });
     return (dispatch) =>  dispatch({
-        type: DELETE_CUSTOMER,
+        type: DELETE_PRODUCT,
         request
       })
       .request
       .then(
         res => {
-          dispatch(deleteCustomerSuccess(res.data))
+          dispatch(deleteProductSuccess(res.data))
           dispatch(dispatch(updateCusomerList(res.data, "DELETE")))
         },
-        err => dispatch(deleteCustomerFailure(res.data))
+        err => dispatch(deleteProductFailure(res.data))
       )
   }
   
-function deleteCustomerSuccess(deletedCustomer) {
+function deleteProductSuccess(deletedProduct) {
   return {
-    type: DELETE_CUSTOMER_SUCCESS,
-    payload: deletedCustomer
+    type: DELETE_PRODUCT_SUCCESS,
+    payload: deletedProduct
   };
 }
   
-function deleteCustomerFailure(response) {
+function deleteProductFailure(response) {
   return {
-    type: DELETE_CUSTOMER_FAILURE,
+    type: DELETE_PRODUCT_FAILURE,
     payload: response
   };
 }
   
-  export function resetDeletedCustomer() {
+  export function resetDeletedProduct() {
     return {
-      type: RESET_DELETED_CUSTOMER
+      type: RESET_DELETED_PRODUCT
     }
   }
   ;

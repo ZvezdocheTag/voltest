@@ -2,17 +2,17 @@ import React from 'react';
 import { Form, Control } from 'react-redux-form';
 import { Button } from 'react-bootstrap'
 
-class CustomerFormDelete extends React.Component {
+class ProductFormDelete extends React.Component {
   handleSubmit(values) {
-    let { handlerDeleteCustomer, close } = this.props;
-    handlerDeleteCustomer(this.props.itemId)
+    let { handlerDeleteProduct, close } = this.props;
+    handlerDeleteProduct(this.props.itemId)
     .then(res => close())
   }
 
   render() {
     return (
         <Form 
-        model="customerForm" 
+        model="productForm" 
         onSubmit={(val) => this.handleSubmit(val)}>
         <div>
             You confirm that want delete item {this.props.itemId}
@@ -32,4 +32,4 @@ class CustomerFormDelete extends React.Component {
   }
 }
 
-export default CustomerFormDelete;
+export default ProductFormDelete;

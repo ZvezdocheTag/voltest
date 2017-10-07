@@ -1,8 +1,8 @@
 import {
-    CREATE_CUSTOMER,
-    CREATE_CUSTOMER_SUCCESS,
-    CREATE_CUSTOMER_FAILURE,
-    RESET_CREATE_CUSTOMER,
+    CREATE_PRODUCT,
+    CREATE_PRODUCT_SUCCESS,
+    CREATE_PRODUCT_FAILURE,
+    RESET_CREATE_PRODUCT,
 } from '../action/create'
 
 const initialState = {  
@@ -11,21 +11,21 @@ const initialState = {
     loading: false 
 }
 
-function createCustomerReducer(state = initialState, action) {
+function createProductReducer(state = initialState, action) {
     let error;
     switch(action.type) {
-        case CREATE_CUSTOMER:
+        case CREATE_PRODUCT:
             return { 
                 ...state, 
                 loading: true    
             }
-        case CREATE_CUSTOMER_SUCCESS:
+        case CREATE_PRODUCT_SUCCESS:
             return {  
                 customer: action.payload, 
                 error:null, 
                 loading: false    
             };
-        case CREATE_CUSTOMER_FAILURE:
+        case CREATE_PRODUCT_FAILURE:
         error = action.payload || 
             {message: action.payload.message}
             return {  
@@ -33,7 +33,7 @@ function createCustomerReducer(state = initialState, action) {
                 error: error, 
                 loading: false    
             };
-        case RESET_CREATE_CUSTOMER:
+        case RESET_CREATE_PRODUCT:
             return {  
                 customer: null, 
                 error:null, 
@@ -44,4 +44,4 @@ function createCustomerReducer(state = initialState, action) {
     }
 } 
 
-export default createCustomerReducer;
+export default createProductReducer;

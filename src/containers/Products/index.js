@@ -5,17 +5,17 @@ import ContentHeader from '../../components/ContentHeader'
 
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
-import { fetchCustomers } from './logic/action/fetchall'
-import { createCustomer } from './logic/action/create'
-import { deleteCustomer } from './logic/action/delete'
-import { changeCustomer } from './logic/action/change'
+import { fetchProducts } from './logic/action/fetchall'
+import { createProduct } from './logic/action/create'
+import { deleteProduct } from './logic/action/delete'
+import { changeProduct } from './logic/action/change'
 import './main.css'
-import CustomerFormAdd from './FormAdd'
-import CustomerFormDelete from './FormDelete'
-import CustomerFormUpdate from './FormUpdate'
-import CustomerItem from './Customer'
+import ProductFormAdd from './FormAdd'
+import ProductFormDelete from './FormDelete'
+import ProductFormUpdate from './FormUpdate'
+import ProductItem from './Product'
 
-class Customers extends Component {
+class Products extends Component {
     constructor() {
         super()
         this.state = {
@@ -25,8 +25,8 @@ class Customers extends Component {
         }
     }
     componentWillMount() {
-        const { fetchCustomers } = this.props;
-        fetchCustomers()
+        const { fetchProducts } = this.props;
+        fetchProducts()
     }
 
     close = () => this.setState({ 
@@ -41,71 +41,68 @@ class Customers extends Component {
             <Content 
             close={this.close}
             itemId={currentId}
-            handlerCreateCustomer={this.props.createCustomer}
-            handlerDeleteCustomer={this.props.deleteCustomer}
-            handlerChangeCustomer={this.props.changeCustomer}
+            handlerCreateProduct={this.props.createProduct}
+            handlerDeleteProduct={this.props.deleteProduct}
+            handlerChangeProduct={this.props.changeProduct}
             />
         ),
         itemId: currentId || null
     })
 
     create = () => {
-        this.open(CustomerFormAdd)
+        this.open(ProductFormAdd)
     }
     update = (id, e) => {
-        this.open(CustomerFormUpdate, id)
+        this.open(ProductFormUpdate, id)
     }
     deleted = (id, e) => {
-        this.open(CustomerFormDelete, id)
+        this.open(ProductFormDelete, id)
     }
     
     render() {
         const { ModalContent, showModal } = this.state;
-        const { customer, createCustomer } = this.props;
+        const { product, createProduct } = this.props;
         const { 
-            customers,
+            products,
             error,
             loading
-         } = customer.all;
+         } = product.all;
         let condition = !customers.length && loading;
 
         return (
             <div>
-                <ContentHeader func={this.create} />
+                <ContentHeader 
+                func={this.create} title={'Products'}/>
                 {
                     condition     ?
                     <h1>LOAD</h1> :
                     <TableCustom 
-                        thead={["#", "Name", "Adress"]}
+                        thead={["#", "Name", "Price"]}
                         tbodyData={customers}
-                        Tbitem={CustomerItem}
+                        Tbitem={ProductItem}
                         update={this.update}
                         deleted={this.deleted}
                     />
                 }
-                <ModalCustomer 
+                <ModalProduct 
                     closeHandler={this.close} 
                     showModal={showModal}
                 >
                     <ModalContent/>
-                </ModalCustomer >
+                </ModalProduct >
             </div>
         );
     }
 }
 
-const mapStateToProps = (store) => {
-    return {
-        ...store
-    }
-}
+const mapStateToProps = (store) => ({...store})
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchCustomers: () => dispatch(fetchCustomers()),
-        createCustomer: (data) => dispatch(createCustomer(data)),
-        deleteCustomer: (id) => dispatch(deleteCustomer(id)),
-        changeCustomer: (data, id) => dispatch(changeCustomer(data, id)),   
+        fetchProducts: () => dispatch(fetchProducts()),
+        createProduct: (data) => dispatch(createProduct(data)),
+        deleteProduct: (id) => dispatch(deleteProduct(id)),
+        changeProduct: (data, id) => dispatch(changeProduct(data, id)),   
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Customers);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

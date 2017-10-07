@@ -61,7 +61,7 @@ class Customers extends Component {
     
     render() {
         const { ModalContent, showModal } = this.state;
-        const { customer, createCustomer } = this.props;
+        const { customer } = this.props;
         const { 
             customers,
             error,
@@ -71,7 +71,8 @@ class Customers extends Component {
 
         return (
             <div>
-                <ContentHeader func={this.create} />
+                <ContentHeader 
+                func={this.create} title={'Customers'}/>
                 {
                     condition     ?
                     <h1>LOAD</h1> :
@@ -94,18 +95,12 @@ class Customers extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
-    return {
-        ...store
-    }
-}
+const mapStateToProps = (store) => ({...store})
 
-const mapDispatchToProps = (dispatch) => {
-    return {
+const mapDispatchToProps = (dispatch) => ({
         fetchCustomers: () => dispatch(fetchCustomers()),
         createCustomer: (data) => dispatch(createCustomer(data)),
         deleteCustomer: (id) => dispatch(deleteCustomer(id)),
         changeCustomer: (data, id) => dispatch(changeCustomer(data, id)),   
-    }
-}
+    })
 export default connect(mapStateToProps, mapDispatchToProps)(Customers);

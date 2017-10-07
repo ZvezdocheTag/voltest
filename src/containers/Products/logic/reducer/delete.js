@@ -1,8 +1,8 @@
 import {
-    DELETE_CUSTOMER,
-    DELETE_CUSTOMER_SUCCESS,
-    DELETE_CUSTOMER_FAILURE,
-    RESET_DELETE_CUSTOMER,
+    DELETE_PRODUCT,
+    DELETE_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_FAILURE,
+    RESET_DELETE_PRODUCT,
 } from '../action/delete'
 
 const initialState = {
@@ -11,21 +11,21 @@ const initialState = {
     loading: false
 }
 
-function deleteCustomerReducer(state = initialState, action) {
+function deleteProductReducer(state = initialState, action) {
     let error;
     switch(action.type) {   
-        case DELETE_CUSTOMER:
+        case DELETE_PRODUCT:
             return { 
                 ...state, 
                 loading: true
             }
-        case DELETE_CUSTOMER_SUCCESS:
+        case DELETE_PRODUCT_SUCCESS:
             return { 
                 customer: action.payload, 
                 error:null, 
                 loading: false 
             };
-        case DELETE_CUSTOMER_FAILURE:
+        case DELETE_PRODUCT_FAILURE:
         error = action.payload || 
             {message: action.payload.message}
             return { 
@@ -33,7 +33,7 @@ function deleteCustomerReducer(state = initialState, action) {
                 error: error, 
                 loading: false 
             };
-        case RESET_DELETE_CUSTOMER:
+        case RESET_DELETE_PRODUCT:
             return { 
                 customer: null, 
                 error:null, 
@@ -44,4 +44,4 @@ function deleteCustomerReducer(state = initialState, action) {
     }
 } 
 
-export default deleteCustomerReducer;
+export default deleteProductReducer;

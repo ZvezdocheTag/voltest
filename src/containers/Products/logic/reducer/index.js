@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux'
 import fetchAllCusomersReducer from './fetchall'
-import deleteCustomerReducer from './delete'
-import createCustomerReducer from './create'
-import changeCustomerReducer from './change'
+import deleteProductReducer from './delete'
+import createProductReducer from './create'
+import changeProductReducer from './change'
 
 
 function getAll() {
   return combineReducers({
     all: fetchAllCusomersReducer,
-    deleted: deleteCustomerReducer,
-    new: createCustomerReducer,
-    updated: changeCustomerReducer
+    deleted: deleteProductReducer,
+    new: createProductReducer,
+    updated: changeProductReducer
   })
 }
 

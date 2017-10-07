@@ -1,8 +1,8 @@
 import {
-    CHANGE_CUSTOMER,
-    CHANGE_CUSTOMER_SUCCESS,
-    CHANGE_CUSTOMER_FAILURE,
-    RESET_CHANGED_CUSTOMER,
+    CHANGE_PRODUCT,
+    CHANGE_PRODUCT_SUCCESS,
+    CHANGE_PRODUCT_FAILURE,
+    RESET_CHANGED_PRODUCT,
 } from '../action/change'
 
 const initialState = {
@@ -12,23 +12,23 @@ const initialState = {
 }
 
 
-function changeCustomerReducer (state = initialState, action) {
+function changeProductReducer (state = initialState, action) {
     let error;
     switch(action.type) {
-        case CHANGE_CUSTOMER:
+        case CHANGE_PRODUCT:
             console.log("CHANGE")
             return { 
                 ...state, 
                 loading: true    
             } 
-        case CHANGE_CUSTOMER_SUCCESS:
+        case CHANGE_PRODUCT_SUCCESS:
         console.log("CHANGE S")
             return { 
                 customer: action.payload, 
                 error: false,
                 loading: false    
             }
-        case CHANGE_CUSTOMER_FAILURE:
+        case CHANGE_PRODUCT_FAILURE:
         console.log("CHANGE F")
             error = action.payload || 
             {message: action.payload.message}
@@ -37,7 +37,7 @@ function changeCustomerReducer (state = initialState, action) {
                 error: error, 
                 loading: false    
             };
-        case RESET_CHANGED_CUSTOMER:
+        case RESET_CHANGED_PRODUCT:
             return {  
                 customer: null, 
                 error:null, 
@@ -48,4 +48,4 @@ function changeCustomerReducer (state = initialState, action) {
     }
 } 
 
-export default changeCustomerReducer ;
+export default changeProductReducer ;

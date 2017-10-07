@@ -1,37 +1,37 @@
 
-//Fetch CUSTOMER
-export const FETCH_CUSTOMER = 'FETCH_CUSTOMER';
-export const FETCH_CUSTOMER_SUCCESS = 'FETCH_CUSTOMER_SUCCESS';
-export const FETCH_CUSTOMER_FAILURE = 'FETCH_CUSTOMER_FAILURE';
-export const RESET_ACTIVE_CUSTOMER = 'RESET_ACTIVE_CUSTOMER';
+//Fetch PRODUCT
+export const FETCH_PRODUCT = 'FETCH_PRODUCT';
+export const FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS';
+export const FETCH_PRODUCT_FAILURE = 'FETCH_PRODUCT_FAILURE';
+export const RESET_ACTIVE_PRODUCT = 'RESET_ACTIVE_PRODUCT';
 
-export function fetchCustomer(id) {
+export function fetchProduct(id) {
   const request = axios.get(`${ROOT_URL}/posts/${id}`);
 
   return {
-    type: FETCH_CUSTOMER,
+    type: FETCH_PRODUCT,
     payload: request
   };
 }
 
 
-export function fetchCustomerSuccess(activeCustomer) {
+export function fetchProductSuccess(activeProduct) {
   return {
-    type: FETCH_CUSTOMER_SUCCESS,
-    payload: activeCustomer
+    type: FETCH_PRODUCT_SUCCESS,
+    payload: activeProduct
   };
 }
 
-export function fetchCustomerFailure(error) {
+export function fetchProductFailure(error) {
   return {
-    type: FETCH_CUSTOMER_FAILURE,
+    type: FETCH_PRODUCT_FAILURE,
     payload: error
   };
 }
 
-export function resetActiveCustomer() {
+export function resetActiveProduct() {
   return {
-    type: RESET_ACTIVE_CUSTOMER
+    type: RESET_ACTIVE_PRODUCT
   }
 }
 

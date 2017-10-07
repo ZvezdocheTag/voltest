@@ -6,7 +6,7 @@ class ContentHeader extends Component {
     render() {
         return (
             <div className="content-header">
-                    <h1>Customers</h1>
+                    <h1>{this.props.title}</h1>
                     <Button 
                         bsStyle="primary"
                         onClick={this.props.func}

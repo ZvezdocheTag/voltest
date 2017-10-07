@@ -1,9 +1,9 @@
 import {
-    FETCH_CUSTOMERS,
-    FETCH_CUSTOMERS_SUCCESS,
-    FETCH_CUSTOMERS_FAILURE,
-    RESET_FETCH_CUSTOMERS,
-    UPDATE_CUSTOMER_LIST
+    FETCH_PRODUCTS,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_FAILURE,
+    RESET_FETCH_PRODUCTS,
+    UPDATE_PRODUCT_LIST
 } from '../action/fetchall'
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
     loading: false
 }
 
-function updateCustomerListFilter(filter, action, state) {
+function updateProductListFilter(filter, action, state) {
     switch(filter) {
         case "POST":
             return [...state, action]
@@ -33,14 +33,14 @@ function updateCustomerListFilter(filter, action, state) {
 function fetchAllCusomersReducer(state = initialState, action) {
     let error;
     switch(action.type) {
-        case FETCH_CUSTOMERS:
+        case FETCH_PRODUCTS:
             return { 
                 ...state, 
                 customers:[], 
                 error: null, 
                 loading: true
             }
-        case FETCH_CUSTOMERS_SUCCESS:
+        case FETCH_PRODUCTS_SUCCESS:
         return { 
             ...state, 
             customers: action.payload, 
@@ -48,7 +48,7 @@ function fetchAllCusomersReducer(state = initialState, action) {
             loading: false
              
         };
-        case FETCH_CUSTOMERS_FAILURE:
+        case FETCH_PRODUCTS_FAILURE:
         error = action.payload || 
             {message: action.payload.message}
         return { 
@@ -58,16 +58,16 @@ function fetchAllCusomersReducer(state = initialState, action) {
             loading: false
              
         };
-        case UPDATE_CUSTOMER_LIST:
+        case UPDATE_PRODUCT_LIST:
             return {
                 ...state,
-                customers: updateCustomerListFilter(
+                customers: updateProductListFilter(
                     action.filter,
                     action.payload,
                     state.customers
                 )
             }
-        case RESET_FETCH_CUSTOMERS:
+        case RESET_FETCH_PRODUCTS:
             return { 
                 ...state,
                 customers: [], 

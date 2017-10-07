@@ -1,52 +1,52 @@
 import ROOT_URL from '../../../../constants'
 import axios from 'axios'
-import { updateCusomerList } from './fetchall'
+import { updateProductList } from './fetchall'
 
-import { fetchCustomers } from './fetchall'
-export const CREATE_CUSTOMER = 'CREATE_CUSTOMER';
-export const CREATE_CUSTOMER_SUCCESS = 'CREATE_CUSTOMER_SUCCESS';
-export const CREATE_CUSTOMER_FAILURE = 'CREATE_CUSTOMER_FAILURE';
-export const RESET_NEW_CUSTOMER = 'RESET_NEW_CUSTOMER';
+import { fetchProducts } from './fetchall'
+export const CREATE_PRODUCT = 'CREATE_PRODUCT';
+export const CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS';
+export const CREATE_PRODUCT_FAILURE = 'CREATE_PRODUCT_FAILURE';
+export const RESET_NEW_PRODUCT = 'RESET_NEW_PRODUCT';
 
-export function createCustomer(props) {
+export function createProduct(props) {
     const request = axios({
       method: 'post',
       data: props,
-      url: `${ROOT_URL}/customers`,
+      url: `${ROOT_URL}/products`,
     });
   
     return (dispatch) => dispatch({
-      type: CREATE_CUSTOMER, 
+      type: CREATE_PRODUCT, 
       request
     })
     .request
     .then(
       res => {
         // console.log(res.config.headers, "IN ACTION")
-        dispatch(createCustomerSuccess(res.data))
-        dispatch(updateCusomerList(res.data, "POST"))
+        dispatch(createProductSuccess(res.data))
+        dispatch(updateProductList(res.data, "POST"))
       },
-      err => dispatch(createCustomerFailure(err)) 
+      err => dispatch(createProductFailure(err)) 
     )
   }
   
-  export function createCustomerSuccess(newCustomer) {
+  export function createProductSuccess(newProduct) {
     return {
-      type: CREATE_CUSTOMER_SUCCESS,
-      payload: newCustomer
+      type: CREATE_PRODUCT_SUCCESS,
+      payload: newProduct
     };
   }
   
-  export function createCustomerFailure(error) {
+  export function createProductFailure(error) {
     return {
-      type: CREATE_CUSTOMER_FAILURE,
+      type: CREATE_PRODUCT_FAILURE,
       payload: error
     };
   }
   
-  export function resetNewCustomer() {
+  export function resetNewProduct() {
     return {
-      type: RESET_NEW_CUSTOMER
+      type: RESET_NEW_PRODUCT
     }
   };
 

@@ -1,10 +1,10 @@
-export const addCustomer = {
+export const addProduct = {
     name: '',
     address: '',
     phone: '',
 }
 
-export const changeCustomer = {
+export const changeProduct = {
     name: '',
     address: '',
     phone: '',
