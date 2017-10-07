@@ -15,9 +15,6 @@ class ModalCustomer extends Component {
           <Modal.Body>
             {this.props.children}
           </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={closeHandler}>Close</Button>
-          </Modal.Footer>
         </Modal>
         );
     }

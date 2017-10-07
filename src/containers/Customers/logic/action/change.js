@@ -1,40 +1,48 @@
 import ROOT_URL from '../../../../constants'
 import axios from 'axios'
+import { updateCusomerList } from './fetchall'
 //CHANGE CUSTOMER
 export const CHANGE_CUSTOMER = 'CHANGE_CUSTOMER';
 export const CHANGE_CUSTOMER_SUCCESS = 'CHANGE_CUSTOMER_SUCCESS';
 export const CHANGE_CUSTOMER_FAILURE = 'CHANGE_CUSTOMER_FAILURE';
 export const RESET_CHANGED_CUSTOMER = 'RESET_CHANGED_CUSTOMER';
 
-export function changeCustomer(props, tokenFromStorage) {
+export function changeCustomer(props, id) {
     const request = axios({
-      method: 'post',
+      method: 'put',
       data: props,
-      url: `${ROOT_URL}/posts`,
-      headers: {
-        'Authorization': `Bearer ${tokenFromStorage}`
-      }
+      url: `${ROOT_URL}/customers/${id}`,
     });
   
-    return {
-      type: CHANGE_CUSTOMER,
-      payload: request
-    };
+    return (dispatch) => dispatch({
+      type: CHANGE_CUSTOMER, 
+      request
+    })
+    .request
+    .then(
+      res => {
+        dispatch(changeCustomerSuccess(res.data))
+        dispatch(updateCusomerList(res.data, "PUT"))
+      },
+      err => dispatch(changeCustomerFailure(err)) 
+    )
   }
+
+
   
-  export function changeCustomerSuccess(newCustomer) {
-    return {
-      type: CHANGE_CUSTOMER_SUCCESS,
-      payload: newCustomer
-    };
-  }
+function changeCustomerSuccess(newCustomer) {
+  return {
+    type: CHANGE_CUSTOMER_SUCCESS,
+    payload: newCustomer
+  };
+}
   
-  export function changeCustomerFailure(error) {
-    return {
-      type: CHANGE_CUSTOMER_FAILURE,
-      payload: error
-    };
-  }
+function changeCustomerFailure(error) {
+  return {
+    type: CHANGE_CUSTOMER_FAILURE,
+    payload: error
+  };
+}
   
   export function resetNewCustomer() {
     return {

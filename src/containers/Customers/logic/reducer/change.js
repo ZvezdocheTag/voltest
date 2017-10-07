@@ -6,31 +6,46 @@ import {
 } from '../action/change'
 
 const initialState = {
-
+    customer:null, 
+    error: null, 
+    loading: false 
 }
 
 
-function changeCustomer(state = initialState, action) {
+function changeCustomerReducer (state = initialState, action) {
+    let error;
     switch(action.type) {
         case CHANGE_CUSTOMER:
-            return {
-                ...state
+            console.log("CHANGE")
+            return { 
+                ...state, 
+                loading: true    
             } 
         case CHANGE_CUSTOMER_SUCCESS:
-            return {
-                ...state
-            } 
+        console.log("CHANGE S")
+            return { 
+                customer: action.payload, 
+                error: false,
+                loading: false    
+            }
         case CHANGE_CUSTOMER_FAILURE:
-            return {
-                ...state
-            } 
+        console.log("CHANGE F")
+            error = action.payload || 
+            {message: action.payload.message}
+            return {  
+                customer: null, 
+                error: error, 
+                loading: false    
+            };
         case RESET_CHANGED_CUSTOMER:
-            return {
-                ...state
-            } 
+            return {  
+                customer: null, 
+                error:null, 
+                loading: false
+            };
         default: 
             return state;
     }
 } 
 
-export default changeCustomer;
+export default changeCustomerReducer ;

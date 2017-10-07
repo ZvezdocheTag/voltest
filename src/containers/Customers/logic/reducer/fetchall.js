@@ -7,9 +7,9 @@ import {
 } from '../action/fetchall'
 
 const initialState = {
-        customers: [], 
-        error:null, 
-        loading: false
+    customers: [], 
+    error:null, 
+    loading: false
 }
 
 function updateCustomerListFilter(filter, action, state) {
@@ -17,7 +17,12 @@ function updateCustomerListFilter(filter, action, state) {
         case "POST":
             return [...state, action]
         case "PUT":
-            return [...state, action]
+            return state.map(
+                item => 
+                    item.id === action.id ?
+                    action :
+                    item
+                )
         case "DELETE":
             return state.filter(item => item.id !== action.id)
         default:
@@ -67,8 +72,7 @@ function fetchAllCusomersReducer(state = initialState, action) {
                 ...state,
                 customers: [], 
                 error:null, 
-                loading: false
-                 
+                loading: false 
             };
         default: 
             return state;

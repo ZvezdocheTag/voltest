@@ -6,30 +6,26 @@ import {
 } from '../action/delete'
 
 const initialState = {
-        customer:null, 
-        error: null, 
-        loading: false
+    customer:null, 
+    error: null, 
+    loading: false
 }
 
 function deleteCustomerReducer(state = initialState, action) {
     let error;
-    switch(action.type) {
-        
+    switch(action.type) {   
         case DELETE_CUSTOMER:
-        console.log("DELTE")
             return { 
                 ...state, 
                 loading: true
             }
         case DELETE_CUSTOMER_SUCCESS:
-        console.log("DELTE S")
             return { 
                 customer: action.payload, 
                 error:null, 
                 loading: false 
             };
         case DELETE_CUSTOMER_FAILURE:
-        console.log("DELTE E")
         error = action.payload || 
             {message: action.payload.message}
             return { 

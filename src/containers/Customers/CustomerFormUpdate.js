@@ -1,12 +1,12 @@
 import React from 'react';
 import { Form, Control } from 'react-redux-form';
+import { Button } from 'react-bootstrap'
 
 class CustomerFormUpdate extends React.Component {
   handleSubmit(values) {
-    let { handlerCreateCustomer } = this.props;
-    // console.log(values.add);
-
-    console.log(handlerCreateCustomer(values.add))
+    let { handlerChangeCustomer, itemId, close } = this.props;
+    handlerChangeCustomer(values.change, itemId)
+    .then(res => close())
   }
 
   render() {
@@ -16,22 +16,28 @@ class CustomerFormUpdate extends React.Component {
         onSubmit={(val) => this.handleSubmit(val)}>
         <div className="field">
           <label>Name:</label>
-          <Control.text model="customerForm.add.name" />
+          <Control.text model="customerForm.change.name" />
         </div>
 
         <div className="field">
           <label>Address:</label>
-          <Control.text model="customerForm.add.address" />
+          <Control.text model="customerForm.change.address" />
         </div>
 
         <div className="field">
           <label>Phone:</label>
-          <Control.text model="customerForm.add.phone" />
+          <Control.text model="customerForm.change.phone" />
         </div>
-
-        <button type="submit">
-          Submit
-        </button>
+        <div className="field-caption">
+          <Button bsStyle="primary" type="submit">
+            Submit
+          </Button>
+          <Button 
+          onClick={this.props.close}
+          bsStyle="default">
+            Dismiss
+          </Button>
+        </div>
       </Form>
     );
   }

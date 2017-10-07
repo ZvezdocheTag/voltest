@@ -67,15 +67,16 @@ class Customers extends Component {
          } = customer.all;
         let condition = !customers.length && loading;
 
-        // console.log(this.props, "CUSTOMERS")
         return (
             <div>
                 <div className="content-header">
                     <h1>Customers</h1>
                     <Button 
-                    bsStyle="primary"
-                    onClick={this.create}>
-                    Create</Button>
+                        bsStyle="primary"
+                        onClick={this.create}
+                    >
+                    Create
+                    </Button>
                 </div>
                 
 
@@ -94,11 +95,8 @@ class Customers extends Component {
                     closeHandler={this.close} 
                     showModal={this.state.showModal}
                 >
-                    <ModalContent
-                        itemId={itemId}
-                    />
+                    <ModalContent/>
                 </ModalCustomer >
-
             </div>
         );
     }
