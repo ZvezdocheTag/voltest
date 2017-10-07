@@ -7,7 +7,6 @@ class CustomerFormAdd extends React.Component {
     let { handlerCreateCustomer, close } = this.props;
     handlerCreateCustomer(values.add)
     .then(res => close())
-
   }
 
   render() {
@@ -28,15 +27,15 @@ class CustomerFormAdd extends React.Component {
           <label>Phone:</label>
           <Control.text model="customerForm.add.phone" />
         </div>
-
         <div className="field-caption">
         <Button bsStyle="primary" type="submit">
           Submit
         </Button>
         <Button 
-        onClick={this.props.close}
-        bsStyle="default">
-          Dismiss
+          onClick={this.props.close}
+          bsStyle="default"
+        >
+        Dismiss
         </Button>
       </div>
       </Form>

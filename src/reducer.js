@@ -17,6 +17,7 @@ function routeReducer(state = routeInitialState, action) {
   switch (action.type) {
     /* istanbul ignore next */
     case LOCATION_CHANGE:
+      // console.log("LOCAL CHANGE")
       return {
         ...state,
         location: action.payload,

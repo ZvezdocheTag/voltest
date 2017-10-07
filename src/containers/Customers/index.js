@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TableCustom from '../../components/Table'
 import ModalCustomer from '../../components/Modal'
+import ContentHeader from '../../components/ContentHeader'
+
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { fetchCustomers } from './logic/action/fetchall'
@@ -8,10 +10,10 @@ import { createCustomer } from './logic/action/create'
 import { deleteCustomer } from './logic/action/delete'
 import { changeCustomer } from './logic/action/change'
 import './main.css'
-import CustomerFormAdd from './CustomerFormAdd'
-import CustomerFormDelete from './CustomerFormDelete'
-import CustomerFormUpdate from './CustomerFormUpdate'
-import CustomerItem from './CustomerItem'
+import CustomerFormAdd from './FormAdd'
+import CustomerFormDelete from './FormDelete'
+import CustomerFormUpdate from './FormUpdate'
+import CustomerItem from './Customer'
 
 class Customers extends Component {
     constructor() {
@@ -58,7 +60,7 @@ class Customers extends Component {
     }
     
     render() {
-        const { ModalContent, itemId } = this.state;
+        const { ModalContent, showModal } = this.state;
         const { customer, createCustomer } = this.props;
         const { 
             customers,
@@ -69,17 +71,7 @@ class Customers extends Component {
 
         return (
             <div>
-                <div className="content-header">
-                    <h1>Customers</h1>
-                    <Button 
-                        bsStyle="primary"
-                        onClick={this.create}
-                    >
-                    Create
-                    </Button>
-                </div>
-                
-
+                <ContentHeader func={this.create} />
                 {
                     condition     ?
                     <h1>LOAD</h1> :
@@ -93,7 +85,7 @@ class Customers extends Component {
                 }
                 <ModalCustomer 
                     closeHandler={this.close} 
-                    showModal={this.state.showModal}
+                    showModal={showModal}
                 >
                     <ModalContent/>
                 </ModalCustomer >
@@ -113,8 +105,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchCustomers: () => dispatch(fetchCustomers()),
         createCustomer: (data) => dispatch(createCustomer(data)),
         deleteCustomer: (id) => dispatch(deleteCustomer(id)),
-        changeCustomer: (data, id) => dispatch(changeCustomer(data, id)),
-        
+        changeCustomer: (data, id) => dispatch(changeCustomer(data, id)),   
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Customers);
