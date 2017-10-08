@@ -11,6 +11,8 @@ import Home from '../Home'
 import Customers from '../Customers'
 import Products from '../Products'
 import Invoices from '../Invoices'
+import InvoiceEdit from '../InvoiceEdit'
+import { withRouter } from 'react-router'
 
 class App extends Component {
 
@@ -31,6 +33,7 @@ class App extends Component {
                     <Route path="/customers" component={Customers} />
                     <Route path="/products" component={Products} />
                     <Route path="/invoices" component={Invoices} />
+                    <Route path="/invoice-edit" component={InvoiceEdit} />
               </Switch>
               <Footer />
             </Grid>
@@ -46,4 +49,4 @@ function mapStateToProps(state) {
     return { state }
 }
 
-export default connect(mapStateToProps)(App)
+export default withRouter(connect(mapStateToProps)(App))

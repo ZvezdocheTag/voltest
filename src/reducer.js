@@ -2,6 +2,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { combineReducers } from 'redux'
 import customerReducer from './containers/Customers/logic/reducer/'
 import productReducer from './containers/Products/logic/reducer/'
+import invoiceReducer from './containers/Invoices/logic/reducer/'
 import { combineForms } from 'react-redux-form';
 import {
   addCustomer,
@@ -11,6 +12,10 @@ import {
   addProduct,
   changeProduct
 } from './containers/Products/logic/initialFormScheme'
+import {
+  addInvoice,
+  changeInvoice
+} from './containers/InvoiceEdit/logic/initialFormScheme'
 
 const routeInitialState = {
   location: null,
@@ -43,9 +48,14 @@ export default function createReducer(injectedReducers) {
       add: addProduct,
       change: changeProduct
     },
+    invoiceForm: {
+      add: addInvoice,
+      change: changeInvoice
+    },
     routeReducer,
     customer: customerReducer,
     product: productReducer,
+    invoice: invoiceReducer,
     ...injectedReducers
   });
 }

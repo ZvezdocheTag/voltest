@@ -5,3 +5,15 @@
 .content-header h1 {
     margin-right: 30px;
 }
+
+.field-caption {
+    margin-top: 30px;
+}
+.field-row {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+}
+.field-row > * {
+    flex-basis: 48%;
+}
