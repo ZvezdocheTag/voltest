@@ -12,12 +12,15 @@ const InvoiceItem = ({data, keyId, event}) => (
       <td>{data.name}</td>
       <td>{data.price}</td>
       <td>
-        <input type="number" defaultValue="1" onChange={event.onchange.bind(null, data.id)}/>
+        <input type="number" 
+        defaultValue="1" 
+        onChange={event.onchange.bind(null, data.id)}/>
       </td>
   </tr>
 )
 
 function prepareDataToSelect(data) {
+  console.log(data)
   return data.map(item => 
     ({ value: item.name, label: item.name, ...item})
   )
@@ -34,7 +37,8 @@ class InvoiceFormAdd extends React.Component {
 
   logChangeCustomer = (val) => {
     let { dispatch } = this.props;
-    dispatch(actions.change("invoiceForm.add.customer", val))
+    console.log(val)
+    dispatch(actions.change("invoiceForm.add.customer", val.id))
     this.setState({
       customerVal: val
     })
@@ -47,8 +51,14 @@ class InvoiceFormAdd extends React.Component {
   }
 
   handleSubmit(values) {
-    let { dispatch } = this.props;
-    console.log(values)
+    let { dispatch, createInvoice } = this.props;
+
+    createInvoice({
+      total: this.total(),
+      discount: values.add.discount,
+      customer_id: values.add.customer,
+    })
+    console.log(values, this.total())
   }
 
   addProduct = (e) => {
@@ -73,6 +83,19 @@ class InvoiceFormAdd extends React.Component {
     }
   }
 
+  total = () => {
+    let { formLiveProps } = this.props;
+    let productList = formLiveProps.products
+    let  { discount } = formLiveProps;
+
+    let sum = productList.reduce((previousValue, item, index, arr) => {
+      return previousValue + (item.price * item.qty)
+    }, 0)
+    let total = sum - (discount/100 * sum);
+
+    return total;
+  }
+
   changeCountValue = (id, e) => {
     let { formLiveProps, dispatch } = this.props;
     let index = 0;
@@ -88,13 +111,6 @@ class InvoiceFormAdd extends React.Component {
   render() {
     let { customers, products, formLiveProps } = this.props;
     let { customerVal, productVal }  = this.state;
-    let productList = formLiveProps.products
-    let  { discount } = formLiveProps;
-
-    let sum = productList.reduce((previousValue, item, index, arr) => {
-      return previousValue + (item.price * item.qty)
-    }, 0)
-    let total = sum - (discount/100 * sum);
 
     return (
         <Form 
@@ -108,7 +124,6 @@ class InvoiceFormAdd extends React.Component {
           <label>Customer:</label>
           <Select
             name="form-field-name"
-            simpleValue
             value={customerVal}
             options={prepareDataToSelect(customers)}
             onChange={this.logChangeCustomer}
@@ -137,7 +152,7 @@ class InvoiceFormAdd extends React.Component {
                 onchange={this.changeCountValue}
             />
         <h2>
-          {total}
+          {this.total()}
         </h2>
         <div className="field-caption">
         <Button bsStyle="primary" type="submit">

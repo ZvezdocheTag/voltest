@@ -9,9 +9,7 @@ import { Button } from 'react-bootstrap'
 import { fetchInvoices } from './logic/action/fetchall'
 import { deleteInvoice } from './logic/action/delete'
 import './main.css'
-import InvoiceFormAdd from './FormAdd'
 import InvoiceFormDelete from './FormDelete'
-import InvoiceFormUpdate from './FormUpdate'
 import InvoiceItem from './Invoice'
 
 class Invoices extends Component {
@@ -46,18 +44,13 @@ class Invoices extends Component {
         itemId: currentId || null
     })
 
-    create = () => {
-        this.open(InvoiceFormAdd)
-    }
-    update = (id, e) => {
-        this.open(InvoiceFormUpdate, id)
-    }
+
     deleted = (id, e) => {
         this.open(InvoiceFormDelete, id)
     }
     
     render() {
-        console.log(this)
+        
         const { ModalContent, showModal } = this.state;
         const { invoice } = this.props;
         const { 
@@ -67,6 +60,7 @@ class Invoices extends Component {
          } = invoice.all;
         let condition = !invoices.length && loading;
 
+        console.log(invoice)
         return (
             <div>
             <div className="content-header">
@@ -81,10 +75,9 @@ class Invoices extends Component {
                     condition     ?
                     <Loader /> :
                     <TableCustom 
-                        thead={["#", "Name", "Price"]}
+                        thead={["#", "Customer", "Discount", "Total"]}
                         tbodyData={invoices}
                         Tbitem={InvoiceItem}
-                        update={this.update}
                         deleted={this.deleted}
                     />
                 }

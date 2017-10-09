@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { fetchCustomers } from '../Customers/logic/action/fetchall'
 import { fetchProducts } from '../Products/logic/action/fetchall'
+import { createInvoice } from '../Invoices/logic/action/create'
 // import { createInvoice } from './logic/action/create'
 // import { deleteInvoice } from './logic/action/delete'
 // import { changeInvoice } from './logic/action/change'
@@ -16,7 +17,10 @@ class InvoiceEdit extends Component {
         fetchCustomers()
     }
     render() {
-        let { customer, product, dispatch, invoiceForm } = this.props;
+        let { 
+            customer,
+            createInvoice,
+            product, dispatch, invoiceForm } = this.props;
         const { 
             customers,
             error,
@@ -39,6 +43,7 @@ class InvoiceEdit extends Component {
                         dispatch={dispatch}
                         customers={customers}
                         products={products}
+                        createInvoice={createInvoice}
                         formLiveProps={invoiceForm.add}
                         />
                 }
