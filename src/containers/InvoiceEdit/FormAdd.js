@@ -12,7 +12,7 @@ const InvoiceItem = ({data, keyId, event}) => (
       <td>{data.name}</td>
       <td>{data.price}</td>
       <td>
-        <input type="text"/>
+        <input type="number" defaultValue="1" onChange={event.onchange.bind(null, data.id)}/>
       </td>
   </tr>
 )
@@ -41,7 +41,6 @@ class InvoiceFormAdd extends React.Component {
   }
 
   logChangeProduct = (val) => {
-    console.log(val)
     this.setState({
       productVal: val
     })
@@ -50,17 +49,9 @@ class InvoiceFormAdd extends React.Component {
   handleSubmit(values) {
     let { dispatch } = this.props;
     console.log(values)
- 
-    // handlerCreateInvoice(values.add)
-    // .then(res => {
-    //   close()
-    //   dispatch(actions.reset('productForm.add'))
-    // })
   }
 
   addProduct = (e) => {
-    // console.log(this, e.target)
-    
     let { dispatch, formLiveProps } = this.props;
     let { products } = formLiveProps;
     
@@ -73,16 +64,26 @@ class InvoiceFormAdd extends React.Component {
           condition = true;
           break;
          }
-        
     }
 
     if(!condition) {
-      dispatch(actions.push("invoiceForm.add.products", this.state.productVal))   
+      dispatch(actions.push("invoiceForm.add.products", {...this.state.productVal, qty: 1}))   
     } else {
       condition = false;
     }
+  }
 
-
+  changeCountValue = (id, e) => {
+    let { formLiveProps, dispatch } = this.props;
+    let index = 0;
+    let current = formLiveProps.products.filter((item, i) => {
+      if(item.id === id) {
+        index = i;
+      }
+      return item.id === id
+    })[0];
+    dispatch(actions.change(`invoiceForm.add.products[${index}].qty`, +e.target.value)) 
+    
   }
   render() {
     let { customers, products, formLiveProps } = this.props;
@@ -91,7 +92,7 @@ class InvoiceFormAdd extends React.Component {
     let  { discount } = formLiveProps;
 
     let sum = productList.reduce((previousValue, item, index, arr) => {
-      return previousValue + item.price
+      return previousValue + (item.price * item.qty)
     }, 0)
     let total = sum - (discount/100 * sum);
 
@@ -133,6 +134,7 @@ class InvoiceFormAdd extends React.Component {
                 Tbitem={InvoiceItem}
                 update={this.update}
                 deleted={this.deleted}
+                onchange={this.changeCountValue}
             />
         <h2>
           {total}

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import { fetchInvoices } from './logic/action/fetchall'
 import { fetchCustomers } from '../Customers/logic/action/fetchall'
 import { fetchProducts } from '../Products/logic/action/fetchall'
-import { createInvoice } from './logic/action/create'
-import { deleteInvoice } from './logic/action/delete'
-import { changeInvoice } from './logic/action/change'
+// import { createInvoice } from './logic/action/create'
+// import { deleteInvoice } from './logic/action/delete'
+// import { changeInvoice } from './logic/action/change'
 import InvoiceFormAdd from './FormAdd'
 
 
@@ -45,6 +44,7 @@ class InvoiceEdit extends Component {
                 }
             </div>
         );
+        
     }
 }
 
@@ -57,11 +57,9 @@ const mapStateToProps = (store) => ({...store})
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        fetchInvoices: () => dispatch(fetchInvoices()),
         fetchProducts: () => dispatch(fetchProducts()),
         fetchCustomers: () => dispatch(fetchCustomers()),
         createInvoice: (data) => dispatch(createInvoice(data)),
-        deleteInvoice: (id) => dispatch(deleteInvoice(id)),
         changeInvoice: (data, id) => dispatch(changeInvoice(data, id)),   
     }
 }

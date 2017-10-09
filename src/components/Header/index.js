@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { 
     Navbar, 
     Nav, 
@@ -8,7 +8,7 @@ import {
     NavDropdown
 } from 'react-bootstrap'
 
-class Header extends React.Component {
+class Header extends PureComponent  {
 
     render() {
         return (

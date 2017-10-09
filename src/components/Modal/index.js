@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent  } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
 
 
-class ModalCustomer extends Component {
+class ModalCustomer extends PureComponent  {
 
     render() {
         let { showModal, closeHandler } = this.props;

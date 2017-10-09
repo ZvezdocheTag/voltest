@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent  } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap'
 
-class ContentHeader extends Component {
+class ContentHeader extends PureComponent  {
     render() {
         return (
             <div className="content-header">

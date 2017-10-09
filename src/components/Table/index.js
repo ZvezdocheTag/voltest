@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent  } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button } from 'react-bootstrap'
 
@@ -26,14 +26,15 @@ const Tbbody = ({items, Tbitem, event}) => (
     </tbody>
 )
 
-class TableCustom extends Component {
+class TableCustom extends PureComponent  {
     render() {
         let { 
             thead, 
             tbodyData, 
             Tbitem,
             update,
-            deleted
+            deleted,
+            onchange
         } = this.props;
 
         return (
@@ -42,7 +43,7 @@ class TableCustom extends Component {
                 <Tbbody 
                     items={tbodyData}
                     Tbitem={Tbitem}
-                    event={{update, deleted}}
+                    event={{update, deleted, onchange}}
                 />
             </Table>
         );
