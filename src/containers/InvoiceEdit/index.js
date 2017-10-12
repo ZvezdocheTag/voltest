@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { fetchCustomers } from '../Customers/logic/action/fetchall'
 import { fetchProducts } from '../Products/logic/action/fetchall'
 import { createInvoice } from '../Invoices/logic/action/create'
+import { fetchInvoice } from '../Invoices/logic/action/fetch'
 // import { createInvoice } from './logic/action/create'
 // import { deleteInvoice } from './logic/action/delete'
 // import { changeInvoice } from './logic/action/change'
@@ -12,15 +13,29 @@ import InvoiceFormAdd from './FormAdd'
 
 class InvoiceEdit extends Component {
     componentWillMount() {
-        let { fetchProducts, fetchCustomers } = this.props;
+        let { 
+            fetchProducts, 
+            fetchCustomers, 
+            fetchInvoice, 
+            match 
+        } = this.props;
         fetchProducts()
         fetchCustomers()
+  
+        if(typeof match.params.id !== "undefined") {
+            fetchInvoice(match.params.id)
+        }
+
     }
     render() {
         let { 
             customer,
             createInvoice,
-            product, dispatch, invoiceForm } = this.props;
+            product, 
+            dispatch, 
+            invoiceForm, 
+            invoice 
+        } = this.props;
         const { 
             customers,
             error,
@@ -32,7 +47,7 @@ class InvoiceEdit extends Component {
 
 
         let condition = !customers.length && loading;
-         
+        
         return (
             <div>
                 INVOICE EDIT
@@ -42,6 +57,7 @@ class InvoiceEdit extends Component {
                         <InvoiceFormAdd 
                         dispatch={dispatch}
                         customers={customers}
+                        defaultFields={invoice.single.invoice}
                         products={products}
                         createInvoice={createInvoice}
                         formLiveProps={invoiceForm.add}
@@ -64,6 +80,7 @@ const mapDispatchToProps = (dispatch) => {
         dispatch,
         fetchProducts: () => dispatch(fetchProducts()),
         fetchCustomers: () => dispatch(fetchCustomers()),
+        fetchInvoice: (id) => dispatch(fetchInvoice(id)),
         createInvoice: (data) => dispatch(createInvoice(data)),
         changeInvoice: (data, id) => dispatch(changeInvoice(data, id)),   
     }

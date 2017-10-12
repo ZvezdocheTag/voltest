@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const InvoiceItem = ({data, keyId, event}) => (
     <tr>
@@ -8,6 +9,9 @@ const InvoiceItem = ({data, keyId, event}) => (
         <td>{data.discount}</td>
         <td>{data.total}</td>
         <td>
+            <Link to={`/invoice/${data.id}`}>
+                edit
+            </Link>
         </td>
     </tr>
 )

@@ -7,8 +7,6 @@ import TableCustom from '../../components/Table'
 
 const InvoiceItem = ({data, keyId, event}) => (
   <tr>
-      {/* <td>{data.name}</td>
-      <td>{data.price}</td> */}
       <td>{data.name}</td>
       <td>{data.price}</td>
       <td>
@@ -20,7 +18,6 @@ const InvoiceItem = ({data, keyId, event}) => (
 )
 
 function prepareDataToSelect(data) {
-  console.log(data)
   return data.map(item => 
     ({ value: item.name, label: item.name, ...item})
   )
@@ -57,8 +54,9 @@ class InvoiceFormAdd extends React.Component {
       total: this.total(),
       discount: values.add.discount,
       customer_id: values.add.customer,
+    }).then(res => {
+      dispatch(actions.reset('invoiceForm.add'))
     })
-    console.log(values, this.total())
   }
 
   addProduct = (e) => {
@@ -109,9 +107,10 @@ class InvoiceFormAdd extends React.Component {
     
   }
   render() {
-    let { customers, products, formLiveProps } = this.props;
+    let { customers, products, formLiveProps, defaultFields } = this.props;
     let { customerVal, productVal }  = this.state;
 
+    console.log(defaultFields, "IN FORM")
     return (
         <Form 
         model="invoiceForm" 

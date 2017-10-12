@@ -1,13 +1,13 @@
 import {
-    FETCH_INVOICES,
-    FETCH_INVOICES_SUCCESS,
-    FETCH_INVOICES_FAILURE,
-    RESET_FETCH_INVOICES,
+    FETCH_INVOICE,
+    FETCH_INVOICE_SUCCESS,
+    FETCH_INVOICE_FAILURE,
+    RESET_FETCH_INVOICE,
     UPDATE_INVOICE_LIST
-} from '../action/fetchall'
+} from '../action/fetch'
 
 const initialState = {
-    invoices: [], 
+    invoice: [], 
     error:null, 
     loading: false
 }
@@ -30,31 +30,31 @@ function updateInvoiceListFilter(filter, action, state) {
     }
 }
 
-function fetchAllIvoicesReducer(state = initialState, action) {
+function fetchIvoice(state = initialState, action) {
     let error;
     switch(action.type) {
-        case FETCH_INVOICES:
-            console.log(action)
+        case FETCH_INVOICE:
+            console.log(action, "FETCH INV")
             return { 
                 ...state, 
-                invoices:[], 
+                invoice:[], 
                 error: null, 
                 loading: true
             }
-        case FETCH_INVOICES_SUCCESS:
+        case FETCH_INVOICE_SUCCESS:
         return { 
             ...state, 
-            invoices: action.payload, 
+            invoice: action.payload, 
             error:null, 
             loading: false
              
         };
-        case FETCH_INVOICES_FAILURE:
+        case FETCH_INVOICE_FAILURE:
         error = action.payload || 
             {message: action.payload.message}
         return { 
             ...state, 
-            invoices: [], 
+            invoice: [], 
             error: error, 
             loading: false
              
@@ -62,16 +62,16 @@ function fetchAllIvoicesReducer(state = initialState, action) {
         case UPDATE_INVOICE_LIST:
             return {
                 ...state,
-                invoices: updateInvoiceListFilter(
+                invoice: updateInvoiceListFilter(
                     action.filter,
                     action.payload,
-                    state.invoices
+                    state.invoice
                 )
             }
-        case RESET_FETCH_INVOICES:
+        case RESET_FETCH_INVOICE:
             return { 
                 ...state,
-                invoices: [], 
+                invoice: [], 
                 error:null, 
                 loading: false 
             };
@@ -80,4 +80,4 @@ function fetchAllIvoicesReducer(state = initialState, action) {
     }
 } 
 
-export default fetchAllIvoicesReducer;
+export default fetchIvoice;

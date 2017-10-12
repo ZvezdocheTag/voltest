@@ -34,6 +34,7 @@ class App extends Component {
                     <Route path="/products" component={Products} />
                     <Route path="/invoices" component={Invoices} />
                     <Route path="/invoice-edit" component={InvoiceEdit} />
+                    <Route path="/invoice/:id" component={InvoiceEdit} />
               </Switch>
               <Footer />
             </Grid>

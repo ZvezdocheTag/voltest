@@ -60,7 +60,7 @@ class Invoices extends Component {
          } = invoice.all;
         let condition = !invoices.length && loading;
 
-        console.log(invoice)
+        console.log(invoices)
         return (
             <div>
             <div className="content-header">
