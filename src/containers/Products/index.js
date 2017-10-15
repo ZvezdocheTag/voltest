@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import TableCustom from '../../components/Table'
 import ModalCustomer from '../../components/Modal'
 import ContentHeader from '../../components/ContentHeader'
@@ -15,7 +15,7 @@ import ProductFormDelete from './FormDelete'
 import ProductFormUpdate from './FormUpdate'
 import ProductItem from './Product'
 
-class Products extends Component {
+class Products extends PureComponent {
     constructor() {
         super()
         this.state = {
@@ -50,20 +50,11 @@ class Products extends Component {
         itemId: currentId || null
     })
 
-    create = () => {
-        this.open(ProductFormAdd)
-    }
-    update = (id, e) => {
-        console.log(id)
-        this.open(ProductFormUpdate, id)
-    }
-    deleted = (id, e) => {
-        console.log(id)
-        this.open(ProductFormDelete, id)
-    }
+    create = () => this.open(ProductFormAdd)
+    update = (id, e) => this.open(ProductFormUpdate, id)
+    deleted = (id, e) => this.open(ProductFormDelete, id)
     
     render() {
-
         const { ModalContent, showModal } = this.state;
         const { product, createProduct } = this.props;
         const { 
@@ -71,7 +62,7 @@ class Products extends Component {
             error,
             loading
          } = product.all;
-        let condition = !products.length && loading;
+        const condition = !products.length && loading;
 
         return (
             <div>

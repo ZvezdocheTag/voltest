@@ -22,7 +22,6 @@ export function createProduct(props) {
     .request
     .then(
       res => {
-        // console.log(res.config.headers, "IN ACTION")
         dispatch(createProductSuccess(res.data))
         dispatch(updateProductList(res.data, "POST"))
       },

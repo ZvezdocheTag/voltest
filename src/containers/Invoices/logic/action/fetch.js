@@ -5,7 +5,7 @@ import axios from 'axios'
 export const FETCH_INVOICE = 'FETCH_INVOICE';
 export const FETCH_INVOICE_SUCCESS = 'FETCH_INVOICE_SUCCESS';
 export const FETCH_INVOICE_FAILURE = 'FETCH_INVOICE_FAILURE';
-export const RESET_INVOICE = 'RESET_INVOICE';
+export const RESET_FETCH_INVOICE = 'RESET_FETCH_INVOICE';
 export const UPDATE_INVOICE_LIST = 'UPDATE_INVOICE_LIST';
 
 export function fetchInvoice(id) {
@@ -20,10 +20,7 @@ export function fetchInvoice(id) {
       })
       .request
       .then(
-        res => {
-            dispatch(fetchInvoiceSuccess(res.data))
-            console.log(res)
-        },
+        res => dispatch(fetchInvoiceSuccess(res.data)),
         err => dispatch(fetchInvoiceFailure(err)) 
       )
   }
@@ -49,3 +46,10 @@ function fetchInvoiceFailure(error) {
     payload: error
   };
 }
+
+export function resetFetchInvoice() {
+  return {
+    type: RESET_FETCH_INVOICE
+  };
+}
+

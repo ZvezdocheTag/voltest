@@ -34,7 +34,6 @@ function fetchAllIvoicesReducer(state = initialState, action) {
     let error;
     switch(action.type) {
         case FETCH_INVOICES:
-            console.log(action)
             return { 
                 ...state, 
                 invoices:[], 
@@ -42,23 +41,23 @@ function fetchAllIvoicesReducer(state = initialState, action) {
                 loading: true
             }
         case FETCH_INVOICES_SUCCESS:
-        return { 
-            ...state, 
-            invoices: action.payload, 
-            error:null, 
-            loading: false
-             
-        };
+            return { 
+                ...state, 
+                invoices: action.payload, 
+                error:null, 
+                loading: false
+                
+            };
         case FETCH_INVOICES_FAILURE:
         error = action.payload || 
             {message: action.payload.message}
-        return { 
-            ...state, 
-            invoices: [], 
-            error: error, 
-            loading: false
-             
-        };
+            return { 
+                ...state, 
+                invoices: [], 
+                error: error, 
+                loading: false
+                
+            };
         case UPDATE_INVOICE_LIST:
             return {
                 ...state,

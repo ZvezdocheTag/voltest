@@ -23,9 +23,7 @@ const routeInitialState = {
 
 function routeReducer(state = routeInitialState, action) {
   switch (action.type) {
-    /* istanbul ignore next */
     case LOCATION_CHANGE:
-      // console.log("LOCAL CHANGE")
       return {
         ...state,
         location: action.payload,
@@ -35,9 +33,6 @@ function routeReducer(state = routeInitialState, action) {
   }
 }
 
-/**
- * Creates the main reducer with the dynamically injected ones
- */
 export default function createReducer(injectedReducers) {
   return combineForms({
     customerForm: {

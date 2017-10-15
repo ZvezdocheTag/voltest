@@ -15,7 +15,6 @@ function createInvoiceReducer(state = initialState, action) {
     let error;
     switch(action.type) {
         case CREATE_INVOICE:
-            console.log("C")
             return { 
                 ...state, 
                 loading: true    

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import TableCustom from '../../components/Table'
 import ModalCustomer from '../../components/Modal'
 import ContentHeader from '../../components/ContentHeader'
@@ -12,7 +12,7 @@ import './main.css'
 import InvoiceFormDelete from './FormDelete'
 import InvoiceItem from './Invoice'
 
-class Invoices extends Component {
+class Invoices extends PureComponent {
     constructor() {
         super()
         this.state = {
@@ -39,6 +39,7 @@ class Invoices extends Component {
             close={this.close}
             itemId={currentId}
             dispatch={this.props.dispatch}
+            handlerDeleteInvoice={this.props.deleteInvoice}
             />
         ),
         itemId: currentId || null
@@ -60,7 +61,6 @@ class Invoices extends Component {
          } = invoice.all;
         let condition = !invoices.length && loading;
 
-        console.log(invoices)
         return (
             <div>
             <div className="content-header">

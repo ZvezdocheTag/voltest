@@ -12,6 +12,10 @@ const InvoiceItem = ({data, keyId, event}) => (
             <Link to={`/invoice/${data.id}`}>
                 edit
             </Link>
+            <Button 
+            bsStyle="default"
+            onClick={event.deleted.bind(null, data.id)} 
+            >Delete</Button>
         </td>
     </tr>
 )

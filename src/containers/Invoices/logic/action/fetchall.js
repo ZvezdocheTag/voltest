@@ -21,7 +21,6 @@ export function fetchInvoices() {
       .request
       .then(
         res => {
-          console.log(res)
           Array.isArray(res.data) ? 
             dispatch(fetchInvoicesSuccess(res.data)) :
             dispatch(fetchInvoicesFailure("DATA IS NOT ARRAY")) 

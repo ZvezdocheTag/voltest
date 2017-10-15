@@ -22,7 +22,6 @@ export function createInvoice(props) {
     .request
     .then(
       res => {
-        // console.log(res.config.headers, "IN ACTION")
         dispatch(createInvoiceSuccess(res.data))
         dispatch(updateInvoiceList(res.data, "POST"))
       },

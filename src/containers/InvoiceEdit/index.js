@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { fetchCustomers } from '../Customers/logic/action/fetchall'
 import { fetchProducts } from '../Products/logic/action/fetchall'
 import { createInvoice } from '../Invoices/logic/action/create'
-import { fetchInvoice } from '../Invoices/logic/action/fetch'
-// import { createInvoice } from './logic/action/create'
-// import { deleteInvoice } from './logic/action/delete'
-// import { changeInvoice } from './logic/action/change'
+import { changeInvoice  } from '../Invoices/logic/action/change'
+import { fetchInvoice, resetFetchInvoice  } from '../Invoices/logic/action/fetch'
 import InvoiceFormAdd from './FormAdd'
 
 
-class InvoiceEdit extends Component {
+class InvoiceEdit extends PureComponent {
     componentWillMount() {
         let { 
             fetchProducts, 
@@ -21,20 +19,24 @@ class InvoiceEdit extends Component {
         } = this.props;
         fetchProducts()
         fetchCustomers()
-  
-        if(typeof match.params.id !== "undefined") {
-            fetchInvoice(match.params.id)
-        }
-
     }
+
+    matchParamsReturn() {
+        const { match } = this.props;       
+        return typeof match.params.id !== "undefined" ? match.params.id : null;
+    }
+
     render() {
-        let { 
+        const { 
             customer,
             createInvoice,
+            resetFetchInvoice,
+            changeInvoice,
             product, 
             dispatch, 
             invoiceForm, 
-            invoice 
+            invoice,
+            match
         } = this.props;
         const { 
             customers,
@@ -43,25 +45,25 @@ class InvoiceEdit extends Component {
          } = customer.all;
         const { 
             products,
-         } = product.all;
-
-
-        let condition = !customers.length && loading;
+        } = product.all;
+        const condition = !customers.length && loading;
         
         return (
             <div>
-                INVOICE EDIT
                 {
-                    condition ?
-                        <div>load</div> :
-                        <InvoiceFormAdd 
-                        dispatch={dispatch}
-                        customers={customers}
-                        defaultFields={invoice.single.invoice}
-                        products={products}
-                        createInvoice={createInvoice}
-                        formLiveProps={invoiceForm.add}
-                        />
+                condition ?
+                    <div>load</div> :
+                    <InvoiceFormAdd 
+                    match={this.matchParamsReturn()}
+                    dispatch={dispatch}
+                    customers={customers}
+                    resetFetchInvoice={resetFetchInvoice}
+                    products={products}
+                    fetchInvoice={fetchInvoice}
+                    changeInvoice={changeInvoice}
+                    createInvoice={createInvoice}
+                    formLiveProps={invoiceForm.add}
+                    />
                 }
             </div>
         );
@@ -70,7 +72,15 @@ class InvoiceEdit extends Component {
 }
 
 InvoiceEdit.propTypes = {
-
+    fetchProducts: PropTypes.func,
+    resetFetchInvoice: PropTypes.func,
+    fetchCustomers: PropTypes.func,
+    fetchInvoice: PropTypes.func,
+    createInvoice: PropTypes.func,
+    changeInvoice: PropTypes.func,
+    dispatch: PropTypes.func,
+    customer: PropTypes.object,
+    product: PropTypes.object,
 };
 
 const mapStateToProps = (store) => ({...store})
@@ -79,6 +89,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
         fetchProducts: () => dispatch(fetchProducts()),
+        resetFetchInvoice: () => dispatch(resetFetchInvoice()),
         fetchCustomers: () => dispatch(fetchCustomers()),
         fetchInvoice: (id) => dispatch(fetchInvoice(id)),
         createInvoice: (data) => dispatch(createInvoice(data)),

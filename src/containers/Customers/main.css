@@ -1,9 +1,21 @@
+html, body, #app-root, .main {
+    height: 100%;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+.main > .container {
+    flex: 1;
+}
 .content-header {
     display: flex;
     align-items: center;
 }
 .content-header h1 {
     margin-right: 30px;
+    margin-top: 7px;
 }
 
 .field-caption {
@@ -16,4 +28,16 @@
 }
 .field-row > * {
     flex-basis: 48%;
+}
+
+tbody td:last-child > button:last-child {
+    margin-left: 15px;
+}
+
+.table>thead>tr>th {
+    border-bottom: none;
+}
+
+.content-header {
+    margin-bottom: 40px;
 }

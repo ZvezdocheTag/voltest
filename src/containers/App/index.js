@@ -22,12 +22,13 @@ class App extends Component {
         let { pathname } = routeReducer.location;
         let title = pathname !== '/' ? pathname.slice(1) : 'Home'
         return (
-            <Grid>
+            <div className="main">
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>{title}</title>
             </Helmet>
                 <Header />
+                <Grid>
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/customers" component={Customers} />
@@ -36,8 +37,9 @@ class App extends Component {
                     <Route path="/invoice-edit" component={InvoiceEdit} />
                     <Route path="/invoice/:id" component={InvoiceEdit} />
               </Switch>
+              </Grid>
               <Footer />
-            </Grid>
+            </div>
         );
     }
 }

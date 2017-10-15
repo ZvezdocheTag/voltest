@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import { Form, Control } from 'react-redux-form';
 import { Button } from 'react-bootstrap'
 
-class InvoiceFormDelete extends React.Component {
+class InvoiceFormDelete extends PureComponent {
   handleSubmit(values) {
     let { handlerDeleteInvoice, close } = this.props;
     handlerDeleteInvoice(this.props.itemId)

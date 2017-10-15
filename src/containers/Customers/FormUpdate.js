@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Control, actions } from 'react-redux-form';
 import { Button } from 'react-bootstrap'
 
-class CustomerFormUpdate extends React.Component {
+class CustomerFormUpdate extends React.PureComponent {
   handleSubmit(values) {
     let { handlerChangeCustomer, itemId, close, dispatch } = this.props;
     handlerChangeCustomer(values.change, itemId)

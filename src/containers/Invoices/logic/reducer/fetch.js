@@ -34,7 +34,6 @@ function fetchIvoice(state = initialState, action) {
     let error;
     switch(action.type) {
         case FETCH_INVOICE:
-            console.log(action, "FETCH INV")
             return { 
                 ...state, 
                 invoice:[], 
@@ -42,23 +41,22 @@ function fetchIvoice(state = initialState, action) {
                 loading: true
             }
         case FETCH_INVOICE_SUCCESS:
-        return { 
-            ...state, 
-            invoice: action.payload, 
-            error:null, 
-            loading: false
-             
-        };
+            return { 
+                ...state, 
+                invoice: action.payload, 
+                error:null, 
+                loading: false    
+            };
         case FETCH_INVOICE_FAILURE:
         error = action.payload || 
             {message: action.payload.message}
-        return { 
-            ...state, 
-            invoice: [], 
-            error: error, 
-            loading: false
-             
-        };
+            return { 
+                ...state, 
+                invoice: [], 
+                error: error, 
+                loading: false
+                
+            };
         case UPDATE_INVOICE_LIST:
             return {
                 ...state,
@@ -70,7 +68,6 @@ function fetchIvoice(state = initialState, action) {
             }
         case RESET_FETCH_INVOICE:
             return { 
-                ...state,
                 invoice: [], 
                 error:null, 
                 loading: false 

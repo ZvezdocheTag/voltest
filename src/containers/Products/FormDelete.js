@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Control } from 'react-redux-form';
 import { Button } from 'react-bootstrap'
 
-class ProductFormDelete extends React.Component {
+class ProductFormDelete extends React.PureComponent {
   handleSubmit(values) {
     let { handlerDeleteProduct, close } = this.props;
     handlerDeleteProduct(this.props.itemId)

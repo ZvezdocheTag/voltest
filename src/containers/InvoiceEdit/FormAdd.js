@@ -4,37 +4,34 @@ import { Button } from 'react-bootstrap'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import TableCustom from '../../components/Table'
+import { Redirect } from 'react-router'
+import InvoiceItem from './InvoiceItem'
 
-const InvoiceItem = ({data, keyId, event}) => (
-  <tr>
-      <td>{data.name}</td>
-      <td>{data.price}</td>
-      <td>
-        <input type="number" 
-        defaultValue="1" 
-        onChange={event.onchange.bind(null, data.id)}/>
-      </td>
-  </tr>
-)
-
-function prepareDataToSelect(data) {
-  return data.map(item => 
-    ({ value: item.name, label: item.name, ...item})
-  )
-}
-
-class InvoiceFormAdd extends React.Component {
+class InvoiceFormAdd extends React.PureComponent {
   constructor() {
     super()
     this.state = {
       customerVal: '',
-      productVal: ''
+      productVal: '',
+      fireRedirect: false
     }
+  }
+
+  componentWillMount() {
+    const { fetchInvoice, match } = this.props;
+
+    if(match !== null) {
+      fetchInvoice()
+    }
+  }
+  prepareDataToSelect(data) {
+    return data.map(item => 
+      ({ value: item.name, label: item.name, ...item})
+    )
   }
 
   logChangeCustomer = (val) => {
     let { dispatch } = this.props;
-    console.log(val)
     dispatch(actions.change("invoiceForm.add.customer", val.id))
     this.setState({
       customerVal: val
@@ -48,13 +45,32 @@ class InvoiceFormAdd extends React.Component {
   }
 
   handleSubmit(values) {
-    let { dispatch, createInvoice } = this.props;
+    let { 
+      dispatch, 
+      createInvoice, 
+      changeInvoice,
+      match,
+    } = this.props;
 
-    createInvoice({
+    if(match === null) {
+      createInvoice({
+        total: this.total(),
+        discount: values.add.discount,
+        customer_id: values.add.customer,
+      }).then(res => {
+        this.setState({ fireRedirect: true })
+        dispatch(actions.reset('invoiceForm.add'))
+      })
+
+      return;
+    }
+
+    changeInvoice({
       total: this.total(),
       discount: values.add.discount,
       customer_id: values.add.customer,
-    }).then(res => {
+    }, match).then(res => {
+      this.setState({ fireRedirect: true })
       dispatch(actions.reset('invoiceForm.add'))
     })
   }
@@ -62,16 +78,13 @@ class InvoiceFormAdd extends React.Component {
   addProduct = (e) => {
     let { dispatch, formLiveProps } = this.props;
     let { products } = formLiveProps;
-    
     let condition = false;
-    for(
-      let i = 0;
-       i < products.length;
-       i+=1) {
-         if(products[i].id === this.state.productVal.id) {
-          condition = true;
-          break;
-         }
+
+    for(let i = 0;i < products.length;i+=1) {
+      if(products[i].id === this.state.productVal.id) {
+        condition = true;
+        break;
+      }
     }
 
     if(!condition) {
@@ -98,25 +111,28 @@ class InvoiceFormAdd extends React.Component {
     let { formLiveProps, dispatch } = this.props;
     let index = 0;
     let current = formLiveProps.products.filter((item, i) => {
-      if(item.id === id) {
-        index = i;
-      }
+      if(item.id === id) index = i
       return item.id === id
     })[0];
-    dispatch(actions.change(`invoiceForm.add.products[${index}].qty`, +e.target.value)) 
-    
-  }
-  render() {
-    let { customers, products, formLiveProps, defaultFields } = this.props;
-    let { customerVal, productVal }  = this.state;
 
-    console.log(defaultFields, "IN FORM")
+    dispatch(actions.change(`invoiceForm.add.products[${index}].qty`, +e.target.value)) 
+  }
+
+  componentWillUnmount() {
+    this.props.resetFetchInvoice()
+  }
+
+  render() {
+    let { customers, products, formLiveProps,  } = this.props;
+    let { customerVal, productVal }  = this.state;
+    const { from } = '/'
+
     return (
         <Form 
         model="invoiceForm" 
         onSubmit={(val) => this.handleSubmit(val)}>
         <div className="field">
-          <label>Name:</label>
+          <label>Discount:</label>
           <Control.text model="invoiceForm.add.discount" />
         </div>
         <div className="field">
@@ -124,7 +140,7 @@ class InvoiceFormAdd extends React.Component {
           <Select
             name="form-field-name"
             value={customerVal}
-            options={prepareDataToSelect(customers)}
+            options={this.prepareDataToSelect(customers)}
             onChange={this.logChangeCustomer}
           />
         </div>
@@ -134,7 +150,7 @@ class InvoiceFormAdd extends React.Component {
           <Select
             name="form-field-name"
             value={productVal}
-            options={prepareDataToSelect(products)}
+            options={this.prepareDataToSelect(products)}
             onChange={this.logChangeProduct}
           />
           <Button 
@@ -143,27 +159,25 @@ class InvoiceFormAdd extends React.Component {
           </div>
         </div>
         <TableCustom 
-                thead={[ "Name", "Price","Qty",]}
-                tbodyData={formLiveProps.products}
-                Tbitem={InvoiceItem}
-                update={this.update}
-                deleted={this.deleted}
-                onchange={this.changeCountValue}
-            />
-        <h2>
-          {this.total()}
-        </h2>
+          thead={[ "Name", "Price","Qty",]}
+          tbodyData={formLiveProps.products}
+          Tbitem={InvoiceItem}
+          update={this.update}
+          deleted={this.deleted}
+          onchange={this.changeCountValue}
+        />
+        <h2>{this.total()}</h2>
         <div className="field-caption">
         <Button bsStyle="primary" type="submit">
           Submit
         </Button>
-        <Button 
-          onClick={this.props.close}
-          bsStyle="default"
-        >
-        Dismiss
+        <Button onClick={this.props.close} bsStyle="default">
+          Dismiss
         </Button>
       </div>
+      {this.state.fireRedirect && (
+          <Redirect to={from || '/invoices'}/>
+        )}
       </Form>
     );
   }

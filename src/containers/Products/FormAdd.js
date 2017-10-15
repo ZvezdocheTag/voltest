@@ -3,10 +3,9 @@ import { Form, Control, actions } from 'react-redux-form';
 import { Button } from 'react-bootstrap'
 
 
-class ProductFormAdd extends React.Component {
+class ProductFormAdd extends React.PureComponent {
   handleSubmit(values) {
     let { handlerCreateProduct, close, dispatch } = this.props;
-    console.log(this)
     handlerCreateProduct(values.add)
     .then(res => {
       close()
