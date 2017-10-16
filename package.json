@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.production.js --color -p --progress --hide-modules --display-optimization-bailout"
+    "build": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -41,6 +41,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "css-loader": "^0.23.1",
     "html-webpack-plugin": "^2.21.0",
+    "offline-plugin": "^4.8.4",
     "react-transform-hmr": "^1.0.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0",
