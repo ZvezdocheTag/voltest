@@ -13,6 +13,7 @@ import Products from '../Products'
 import Invoices from '../Invoices'
 import InvoiceEdit from '../InvoiceEdit'
 import { withRouter } from 'react-router'
+import './main.css'
 
 class App extends Component {
 
