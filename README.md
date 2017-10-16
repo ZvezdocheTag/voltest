@@ -16,7 +16,7 @@
 2. Correct styles
 3. Add validatation and handlingErrors
 4. Update event, set fields values to  /customer/product/invoices forms.
-5. ...
+5. Deployment to heroku
 
 
 
